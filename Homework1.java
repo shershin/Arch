@@ -16,6 +16,9 @@ public class Homework1 {
 	 *
 	 * @return The equivalent base-10 number, as a string.
 	 */
+	public static void main(){
+		
+	}
 	public static String unsigned(String binary) {
 
 		return "";
