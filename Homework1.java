@@ -6,6 +6,12 @@
  */
 public class Homework1 {
 
+public static void main(){
+		Homework1.unsigned();
+		Homework1.signmag();
+		Homework1.twoscomp();
+		Homework1.string();
+}
 	/**
 	 * Convert a binary string representing an unsigned binary number to the
 	 * equivalent base-10 string. For example, the string "101001" should be
@@ -16,9 +22,7 @@ public class Homework1 {
 	 *
 	 * @return The equivalent base-10 number, as a string.
 	 */
-	public static void main(){
-		
-	}
+
 	public static String unsigned(String binary) {
 
 		return "";
