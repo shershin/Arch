@@ -7,10 +7,11 @@
 public class Homework1 {
 
 public static void main(){
-		Homework1.unsigned();
-		Homework1.signmag();
-		Homework1.twoscomp();
-		Homework1.string();
+	String binary = '101001';
+		Homework1.unsigned(binary);
+		Homework1.signmag(binary);
+		Homework1.twoscomp(binary);
+		Homework1.string(binary);
 }
 	/**
 	 * Convert a binary string representing an unsigned binary number to the
