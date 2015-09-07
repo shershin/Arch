@@ -6,8 +6,8 @@
  */
 public class Homework1 {
 
-public static void main(){
-	String binary = '101001';
+public static void main(String[] args){
+	String binary = "101001";
 		Homework1.unsigned(binary);
 		Homework1.signmag(binary);
 		Homework1.twoscomp(binary);
