@@ -4,10 +4,11 @@
  * @author Dave Poplawski
  * @author Anthony Giorgio
  */
+import java.util.*;
 public class Homework1 {
 
 public static void main(String[] args){
-	String binary = "101001";
+		String binary = "101001";
 		Homework1.unsigned(binary);
 		Homework1.signmag(binary);
 		Homework1.twoscomp(binary);
@@ -25,8 +26,36 @@ public static void main(String[] args){
 	 */
 
 	public static String unsigned(String binary) {
-
-		return "";
+		String results = null;
+		int resultsInt = 0;
+		int[] intBinary = new int[5];
+		intBinary[0] = 1;
+		intBinary[1] = 2;
+		intBinary[2] = 4;
+		intBinary[3] = 8;
+		intBinary[4] = 16;
+		intBinary[5] = 32;
+		Scanner scan = new Scanner(binary);
+		Stack holder = new Stack();
+		while(scan.hasNext()){
+			holder.push(scan.next());
+		}
+		for(int i = 0; i <= 5; i++){
+			if(holder.empty()){
+				System.out.println("the stack is empty");
+			}else if (holder.peek() == "1"){
+				resultsInt = intBinary[i] + resultsInt;
+				holder.pop();
+			}else if(holder.peek() == "0"){
+				holder.pop();
+			}else{
+				System.out.println("this is awkward");
+			}
+		}
+		int[] trans = new int[0];
+		trans[0] = resultsInt;
+		results = trans[0].toString();
+		return results;
 	}
 
 	/**
