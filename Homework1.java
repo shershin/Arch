@@ -52,9 +52,9 @@ public static void main(String[] args){
 				System.out.println("this is awkward");
 			}
 		}
-		int[] trans = new int[0];
-		trans[0] = resultsInt;
-		results = trans[0].toString();
+		Arraylist<Integer> trans = new Arraylist<Integer>();
+		trans.add(resultsInt);
+		results = trans.toString;
 		return results;
 	}
 
