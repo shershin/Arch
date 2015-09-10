@@ -9,7 +9,9 @@ public class Homework1 {
 
 public static void main(String[] args){
 		String binary = "101001";
+		String binary2 = "001001";
 		Homework1.unsigned(binary);
+		Homework1.signmag(binary2);
 		Homework1.signmag(binary);
 		Homework1.twoscomp(binary);
 		Homework1.string(binary);
@@ -42,20 +44,21 @@ public static void main(String[] args){
 		//populate the stack
 		while(x < length){
 			holder.push(resultArray[x]);
-			System.out.println(resultArray[x] + "" + holder.peek());
 			x++;
 		}
 		//changing the
-		for(int i = 0; i <= length; i++){
+		for(int i = 0; i < length - 1; i++){
 			//System.out.println(holder.peek());
-			String holdString =  "" + holder.peek();
+			String holdString = new String();
 			if(holder.empty()){
 				System.out.println("the stack is empty");
-			}else if (holdString.equals("1")){
+			}else{holdString =  "" + holder.peek();
+				}
+			if (holdString.equals("1")){
 				resultsInt = intBinary[i] + resultsInt;
-				System.out.println(resultsInt);
+				//System.out.println(resultsInt);
 				if(holder.empty()){
-					
+
 				}else {holder.pop();}
 			}else if(holdString.equals("0")){
 				if(holder.empty()){
@@ -84,7 +87,52 @@ public static void main(String[] args){
 	 * @return The equivalent base-10 number, as a string.
 	 */
 	public static String signmag(String binary) {
-		return "";
+		String results = new String();
+		int resultsInt = 0;
+		int[] intBinary = new int[binary.length()];
+		intBinary[0] = 1;
+		intBinary[1] = 2;
+		intBinary[2] = 4;
+		intBinary[3] = 8;
+		intBinary[4] = 16;
+		intBinary[5] = 32;
+		int length = binary.length() + 1;
+		String[] resultArray = binary.split("", length);
+		Stack holder = new Stack();
+		int x = 1;
+		//populate the stack
+		while(x < length){
+			holder.push(resultArray[x]);
+			x++;
+		}
+		//changing the
+		for(int i = 0; i < length - 1; i++){
+			//System.out.println(holder.peek());
+			String holdString = new String();
+			if(holder.empty()){
+				System.out.println("the stack is empty");
+			}else{holdString =  "" + holder.peek();
+				}
+			if (holdString.equals("1")){
+				resultsInt = intBinary[i] + resultsInt;
+				//System.out.println(resultsInt);
+				if(holder.empty()){
+
+				}else {holder.pop();}
+			}else if(holdString.equals("0")){
+				if(holder.empty()){
+
+				}else {holder.pop();}
+			}else{
+				System.out.println("this is awkward");
+			}
+		}
+		StringBuilder sb = new StringBuilder();
+		sb.append("");
+		sb.append(resultsInt);
+		results = sb.toString();
+		System.out.println(results);
+		return results;
 	}
 
 	/**
