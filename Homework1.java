@@ -26,33 +26,41 @@ public static void main(String[] args){
 	 */
 
 	public static String unsigned(String binary) {
-		String results = null;
+		String results = new String();
 		int resultsInt = 0;
-		int[] intBinary = new int[6];
+		int[] intBinary = new int[binary.length()];
 		intBinary[0] = 1;
 		intBinary[1] = 2;
 		intBinary[2] = 4;
 		intBinary[3] = 8;
 		intBinary[4] = 16;
 		intBinary[5] = 32;
-		int length = binary.length();
-		String[] resultArray = binary.split("", binary.length());
+		int length = binary.length() + 1;
+		String[] resultArray = binary.split("", length);
 		Stack holder = new Stack();
-		int x = 0;
-		while(x <= length){
+		int x = 1;
+		//populate the stack
+		while(x < length){
 			holder.push(resultArray[x]);
-			System.out.println(resultArray[x]);
-
+			System.out.println(resultArray[x] + "" + holder.peek());
+			x++;
 		}
+		//changing the
 		for(int i = 0; i <= length; i++){
-			System.out.println(holder.peek());
+			//System.out.println(holder.peek());
+			String holdString =  "" + holder.peek();
 			if(holder.empty()){
 				System.out.println("the stack is empty");
-			}else if (holder.peek() == "1"){
+			}else if (holdString.equals("1")){
 				resultsInt = intBinary[i] + resultsInt;
-				holder.pop();
-			}else if(holder.peek() == "0"){
-				holder.pop();
+				System.out.println(resultsInt);
+				if(holder.empty()){
+					
+				}else {holder.pop();}
+			}else if(holdString.equals("0")){
+				if(holder.empty()){
+
+				}else {holder.pop();}
 			}else{
 				System.out.println("this is awkward");
 			}
@@ -61,6 +69,7 @@ public static void main(String[] args){
 		sb.append("");
 		sb.append(resultsInt);
 		results = sb.toString();
+		System.out.println(results);
 		return results;
 	}
 
