@@ -28,19 +28,24 @@ public static void main(String[] args){
 	public static String unsigned(String binary) {
 		String results = null;
 		int resultsInt = 0;
-		int[] intBinary = new int[5];
+		int[] intBinary = new int[6];
 		intBinary[0] = 1;
 		intBinary[1] = 2;
 		intBinary[2] = 4;
 		intBinary[3] = 8;
 		intBinary[4] = 16;
 		intBinary[5] = 32;
-		Scanner scan = new Scanner(binary);
+		int length = binary.length();
+		String[] resultArray = binary.split("", binary.length());
 		Stack holder = new Stack();
-		while(scan.hasNext()){
-			holder.push(scan.next());
+		int x = 0;
+		while(x <= length){
+			holder.push(resultArray[x]);
+			System.out.println(resultArray[x]);
+
 		}
-		for(int i = 0; i <= 5; i++){
+		for(int i = 0; i <= length; i++){
+			System.out.println(holder.peek());
 			if(holder.empty()){
 				System.out.println("the stack is empty");
 			}else if (holder.peek() == "1"){
@@ -52,9 +57,10 @@ public static void main(String[] args){
 				System.out.println("this is awkward");
 			}
 		}
-		Arraylist<Integer> trans = new Arraylist<Integer>();
-		trans.add(resultsInt);
-		results = trans.toString;
+		StringBuilder sb = new StringBuilder();
+		sb.append("");
+		sb.append(resultsInt);
+		results = sb.toString();
 		return results;
 	}
 
