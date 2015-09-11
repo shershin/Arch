@@ -10,11 +10,12 @@ public class Homework1 {
 public static void main(String[] args){
 		String binary = "101001";
 		String binary2 = "001001";
+		String binary3 = "0100000100101011";
 		Homework1.unsigned(binary);
 		Homework1.signmag(binary2);
 		Homework1.signmag(binary);
 		Homework1.twoscomp(binary);
-		Homework1.string(binary);
+		Homework1.string(binary3);
 }
 	/**
 	 * Convert a binary string representing an unsigned binary number to the
@@ -197,7 +198,45 @@ public static void main(String[] args){
 	 * @return The equivalent ASCII string.
 	 */
 	public static String string(String binary) {
-		return "";
+		String results = new String();
+		int resultsInt = 0;
+		double resultsDouble = 0;
+		int length = binary.length() + 1;
+		String[] resultArray = binary.split("", length);
+		Stack holder = new Stack();
+		int x = 1;
+		//populate the stack
+		while(x < length){
+			holder.push(resultArray[x]);
+			x++;
+		}
+		//flip the binary to calculate it
+		for(int i = 0; i < length - 1; i++){
+			String holdString = new String();
+			if(holder.empty()){
+				System.out.println("the stack is empty");
+			}else{holdString =  "" + holder.peek();
+				}
+			if (holdString.equals("1")){
+				resultsDouble = resultsDouble + Math.pow(2, i);
+				if(holder.empty()){
+					System.out.println("dun dun dunnnnn");
+				}else {holder.pop();}
+			}else if(holdString.equals("0")){
+				if(holder.empty()){
+					System.out.println("dun dun dunnnnn");
+				}else {holder.pop();}
+			}else{
+				System.out.println("this is awkward");
+			}
+		}
+		resultsInt = (int) resultsDouble;
+		StringBuilder sb = new StringBuilder();
+		sb.append("");
+		sb.append(ASCII_TABLE[resultsInt]);
+		results = sb.toString();
+		System.out.println(results);
+		return results;
 	}
 
 	static final char[] ASCII_TABLE = {
