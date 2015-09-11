@@ -40,9 +40,8 @@ public static void main(String[] args){
 			holder.push(resultArray[x]);
 			x++;
 		}
-		//changing the
+		//flip the binary to calculate it
 		for(int i = 0; i < length - 1; i++){
-			//System.out.println(holder.peek());
 			String holdString = new String();
 			if(holder.empty()){
 				System.out.println("the stack is empty");
@@ -50,13 +49,12 @@ public static void main(String[] args){
 				}
 			if (holdString.equals("1")){
 				resultsDouble = resultsDouble + Math.pow(2, i);
-				//System.out.println(resultsInt);
 				if(holder.empty()){
-
+					System.out.println("dun dun dunnnnn");
 				}else {holder.pop();}
 			}else if(holdString.equals("0")){
 				if(holder.empty()){
-
+					System.out.println("dun dun dunnnnn");
 				}else {holder.pop();}
 			}else{
 				System.out.println("this is awkward");
@@ -83,6 +81,7 @@ public static void main(String[] args){
 	 */
 	public static String signmag(String binary) {
 		String results = new String();
+		String sign = "+";
 		int resultsInt = 0;
 		double resultsDouble = 0;
 		int length = binary.length() + 1;
@@ -94,23 +93,25 @@ public static void main(String[] args){
 			holder.push(resultArray[x]);
 			x++;
 		}
-		//changing the
+		//flip the binary to calculate it
 		for(int i = 0; i < length - 1; i++){
-			//System.out.println(holder.peek());
 			String holdString = new String();
 			if(holder.empty()){
 				System.out.println("the stack is empty");
 			}else{holdString =  "" + holder.peek();
 				}
 			if (holdString.equals("1")){
-				resultsDouble = resultsDouble + Math.pow(2, i);
-				//System.out.println(resultsInt);
+				if(i == binary.length() - 1){
+					sign = "-";
+				}else{
+					resultsDouble = resultsDouble + Math.pow(2, i);
+				}
 				if(holder.empty()){
-
+					System.out.println("dun dun dunnnnn");
 				}else {holder.pop();}
 			}else if(holdString.equals("0")){
 				if(holder.empty()){
-
+					System.out.println("dun dun dunnnnn");
 				}else {holder.pop();}
 			}else{
 				System.out.println("this is awkward");
@@ -118,6 +119,7 @@ public static void main(String[] args){
 		}
 		resultsInt = (int) resultsDouble;
 		StringBuilder sb = new StringBuilder();
+		sb.append(sign);
 		sb.append("");
 		sb.append(resultsInt);
 		results = sb.toString();
@@ -136,7 +138,51 @@ public static void main(String[] args){
 	 * @return The equivalent base-10 number, as a string.
 	 */
 	public static String twoscomp(String binary) {
-		return "";
+		String results = new String();
+		int resultsInt = 0;
+		double resultsDouble = 0;
+		double negDouble = 0;
+		int length = binary.length() + 1;
+		String[] resultArray = binary.split("", length);
+		Stack holder = new Stack();
+		int x = 1;
+		//populate the stack
+		while(x < length){
+			holder.push(resultArray[x]);
+			x++;
+		}
+		//flip the binary to calculate it
+		for(int i = 0; i < length - 1; i++){
+			String holdString = new String();
+			if(holder.empty()){
+				System.out.println("the stack is empty");
+			}else{holdString =  "" + holder.peek();
+				}
+			if (holdString.equals("1")){
+				if(i == binary.length() - 1){
+					negDouble = negDouble + Math.pow(2, i);
+				}else{
+					resultsDouble = resultsDouble + Math.pow(2, i);
+				}
+				if(holder.empty()){
+					System.out.println("dun dun dunnnnn");
+				}else {holder.pop();}
+			}else if(holdString.equals("0")){
+				if(holder.empty()){
+					System.out.println("dun dun dunnnnn");
+				}else {holder.pop();}
+			}else{
+				System.out.println("this is awkward");
+			}
+		}
+		resultsDouble = resultsDouble - negDouble;
+		resultsInt = (int) resultsDouble;
+		StringBuilder sb = new StringBuilder();
+		sb.append("");
+		sb.append(resultsInt);
+		results = sb.toString();
+		System.out.println(results);
+		return results;
 	}
 
 	/**
