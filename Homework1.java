@@ -30,13 +30,7 @@ public static void main(String[] args){
 	public static String unsigned(String binary) {
 		String results = new String();
 		int resultsInt = 0;
-		int[] intBinary = new int[binary.length()];
-		intBinary[0] = 1;
-		intBinary[1] = 2;
-		intBinary[2] = 4;
-		intBinary[3] = 8;
-		intBinary[4] = 16;
-		intBinary[5] = 32;
+		double resultsDouble = 0;
 		int length = binary.length() + 1;
 		String[] resultArray = binary.split("", length);
 		Stack holder = new Stack();
@@ -55,7 +49,7 @@ public static void main(String[] args){
 			}else{holdString =  "" + holder.peek();
 				}
 			if (holdString.equals("1")){
-				resultsInt = intBinary[i] + resultsInt;
+				resultsDouble = resultsDouble + Math.pow(2, i);
 				//System.out.println(resultsInt);
 				if(holder.empty()){
 
@@ -68,6 +62,7 @@ public static void main(String[] args){
 				System.out.println("this is awkward");
 			}
 		}
+		resultsInt = (int) resultsDouble;
 		StringBuilder sb = new StringBuilder();
 		sb.append("");
 		sb.append(resultsInt);
@@ -89,13 +84,7 @@ public static void main(String[] args){
 	public static String signmag(String binary) {
 		String results = new String();
 		int resultsInt = 0;
-		int[] intBinary = new int[binary.length()];
-		intBinary[0] = 1;
-		intBinary[1] = 2;
-		intBinary[2] = 4;
-		intBinary[3] = 8;
-		intBinary[4] = 16;
-		intBinary[5] = 32;
+		double resultsDouble = 0;
 		int length = binary.length() + 1;
 		String[] resultArray = binary.split("", length);
 		Stack holder = new Stack();
@@ -114,7 +103,7 @@ public static void main(String[] args){
 			}else{holdString =  "" + holder.peek();
 				}
 			if (holdString.equals("1")){
-				resultsInt = intBinary[i] + resultsInt;
+				resultsDouble = resultsDouble + Math.pow(2, i);
 				//System.out.println(resultsInt);
 				if(holder.empty()){
 
@@ -127,6 +116,7 @@ public static void main(String[] args){
 				System.out.println("this is awkward");
 			}
 		}
+		resultsInt = (int) resultsDouble;
 		StringBuilder sb = new StringBuilder();
 		sb.append("");
 		sb.append(resultsInt);
