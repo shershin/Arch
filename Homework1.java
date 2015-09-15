@@ -11,10 +11,10 @@ public static void main(String[] args){
 		String binary = "101001";
 		String binary2 = "001001";
 		String binary3 = "0100000100101011";
-		Homework1.unsigned(binary);
-		Homework1.signmag(binary2);
-		Homework1.signmag(binary);
-		Homework1.twoscomp(binary);
+		//Homework1.unsigned(binary);
+		//Homework1.signmag(binary2);
+		//Homework1.signmag(binary);
+		//Homework1.twoscomp(binary);
 		Homework1.string(binary3);
 }
 	/**
@@ -201,39 +201,60 @@ public static void main(String[] args){
 		String results = new String();
 		int resultsInt = 0;
 		double resultsDouble = 0;
+		double negDouble = 0;
 		int length = binary.length() + 1;
-		String[] resultArray = binary.split("", length);
+		int runTime = binary.length() / 8;
+		int indLength = binary.length() / runTime;
+		System.out.println(runTime + " " + length + " " + indLength);
+		String[] resultArray = new String[indLength];
+		String[] binaryArray = binary.split("", indLength);
 		Stack holder = new Stack();
-		int x = 1;
-		//populate the stack
-		while(x < length){
-			holder.push(resultArray[x]);
-			x++;
-		}
-		//flip the binary to calculate it
-		for(int i = 0; i < length - 1; i++){
-			String holdString = new String();
-			if(holder.empty()){
-				System.out.println("the stack is empty");
-			}else{holdString =  "" + holder.peek();
-				}
-			if (holdString.equals("1")){
-				resultsDouble = resultsDouble + Math.pow(2, i);
-				if(holder.empty()){
-					System.out.println("dun dun dunnnnn");
-				}else {holder.pop();}
-			}else if(holdString.equals("0")){
-				if(holder.empty()){
-					System.out.println("dun dun dunnnnn");
-				}else {holder.pop();}
-			}else{
-				System.out.println("this is awkward");
-			}
-		}
-		resultsInt = (int) resultsDouble;
 		StringBuilder sb = new StringBuilder();
-		sb.append("");
-		sb.append(ASCII_TABLE[resultsInt]);
+		//populate the stack
+		//flip the binary to calculate it
+		for(int i = 0; i < runTime; i++){
+			for(int x = 0; x < indLength; x++){
+				resultArray[] = binaryArray[i].toString().split("", indLength);
+				int y = 1;
+				while(y < indLength){
+					holder.push(resultArray[y]);
+					y++;
+				}
+				String holdString = new String();
+				if(holder.empty()){
+					System.out.println("the stack is empty");
+				}else{
+					holdString =  "" + holder.peek();
+					}
+				if (holdString.equals("1")){
+					if(i == indLength){
+						negDouble = negDouble + Math.pow(2, x);
+					}else{
+						resultsDouble = resultsDouble + Math.pow(2, x);
+					}
+					if(holder.empty()){
+						System.out.println("dun dun dunnnnn");
+					}else {holder.pop();}
+				}else if(holdString.equals("0")){
+					if(holder.empty()){
+						System.out.println("dun dun dunnnnn");
+					}else {holder.pop();}
+				}else{
+					System.out.println("this is awkward");
+				}
+			}
+			resultsInt = (int) resultsDouble;
+			sb.append("");
+			sb.append(resultsInt);
+			sb.append(ASCII_TABLE[resultsInt]);
+		}
+		for(int i = 0; i < length - 1; i++){
+			while(x < length){
+				holder.push(resultArray[x]);
+				x++;
+			}
+
+		}
 		results = sb.toString();
 		System.out.println(results);
 		return results;
