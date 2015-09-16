@@ -3,20 +3,24 @@
  *
  * @author Dave Poplawski
  * @author Anthony Giorgio
+ *
+ Michael Shershin
+ 200-49-739
+ CMPT 422 L111
  */
 import java.util.*;
 public class Homework1 {
-
-public static void main(String[] args){
+//my own main method for my testing needs
+/*/public static void main(String[] args){
 		String binary = "101001";
 		String binary2 = "001001";
 		String binary3 = "0100000100101011";
-		//Homework1.unsigned(binary);
-		//Homework1.signmag(binary2);
-		//Homework1.signmag(binary);
-		//Homework1.twoscomp(binary);
+		Homework1.unsigned(binary);
+		Homework1.signmag(binary2);
+		Homework1.signmag(binary);
+		Homework1.twoscomp(binary);
 		Homework1.string(binary3);
-}
+}/*/
 	/**
 	 * Convert a binary string representing an unsigned binary number to the
 	 * equivalent base-10 string. For example, the string "101001" should be
@@ -199,38 +203,33 @@ public static void main(String[] args){
 	 */
 	public static String string(String binary) {
 		String results = new String();
-		int resultsInt = 0;
-		double resultsDouble = 0;
-		double negDouble = 0;
 		int length = binary.length() + 1;
-		int runTime = binary.length() / 8;
-		int indLength = binary.length() / runTime;
-		System.out.println(runTime + " " + length + " " + indLength);
-		String[] resultArray = new String[indLength];
-		String[] binaryArray = binary.split("", indLength);
+		int amountOfRuns = binary.length() / 8;
+		String[] resultArray = binary.split("", length);
 		Stack holder = new Stack();
-		StringBuilder sb = new StringBuilder();
+		Stack resultStack = new Stack();
+		int x = 1;
 		//populate the stack
+		while(x < length){
+			holder.push(resultArray[x]);
+			x++;
+		}
 		//flip the binary to calculate it
-		for(int i = 0; i < runTime; i++){
-			for(int x = 0; x < indLength; x++){
-				resultArray[] = binaryArray[i].toString().split("", indLength);
-				int y = 1;
-				while(y < indLength){
-					holder.push(resultArray[y]);
-					y++;
-				}
+		for(int i = 0; i < amountOfRuns; i++){
+			int resultsInt = 0;
+			double resultsDouble = 0;
+			double negDouble = 0;
+			for(int w = 0; w < 8; w++){
 				String holdString = new String();
 				if(holder.empty()){
 					System.out.println("the stack is empty");
-				}else{
-					holdString =  "" + holder.peek();
+				}else{holdString =  "" + holder.peek();
 					}
 				if (holdString.equals("1")){
-					if(i == indLength){
-						negDouble = negDouble + Math.pow(2, x);
+					if(i == binary.length() - 1){
+						negDouble = negDouble + Math.pow(2, w);
 					}else{
-						resultsDouble = resultsDouble + Math.pow(2, x);
+						resultsDouble = resultsDouble + Math.pow(2, w);
 					}
 					if(holder.empty()){
 						System.out.println("dun dun dunnnnn");
@@ -243,17 +242,15 @@ public static void main(String[] args){
 					System.out.println("this is awkward");
 				}
 			}
+			resultsDouble = resultsDouble - negDouble;
 			resultsInt = (int) resultsDouble;
-			sb.append("");
-			sb.append(resultsInt);
-			sb.append(ASCII_TABLE[resultsInt]);
+			resultStack.push(ASCII_TABLE[resultsInt]);
 		}
-		for(int i = 0; i < length - 1; i++){
-			while(x < length){
-				holder.push(resultArray[x]);
-				x++;
-			}
-
+		StringBuilder sb = new StringBuilder();
+		while(!resultStack.empty()){
+			sb.append("");
+			sb.append(resultStack.peek());
+			resultStack.pop();
 		}
 		results = sb.toString();
 		System.out.println(results);
