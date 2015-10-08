@@ -17,36 +17,63 @@ main: .globl main
   la $a0, run                             #bring up data to be printed
   syscall                                 #print
 
-                                          #init loop controls
-  li $s1, 0                               #the changing input
-  lw $s2, input                           #load input
-
-loop:
-
-  bge $s3, $s4, dspval
-  lw $s0, xmin2
-  lw $s1, xmin1
-  add $a0, $s1, $s0
-  sw $s1, xmin2
-  sw $a0, xmin1
-dspval:
+  lw $a0, input                           #load input
+  jal factoral                            #start factoral
+                                          #return in $v0
+  move $a0, $v0                           #move return into $a0
   li $v0, 1                               #call for print int
   syscall
-  li $v0, 4
+
+  li $v0, 4                               #print new line
   la $a0, newln
   syscall
-  li $s5, 1                               #incerment value
-  add $s2, $s5, $s2                       #add one to loop control
-  bgtz $s5, loop                          #check to see if input is down to 0 if not repeat
 
-exit: li $v0, 10 #exit
+exit: li $v0, 10                          #exit
   syscall
 
+##########################################
+#factoral function
+#prototype factoral(int i)
+#input reg = $a0
+#work reg = $s0
+#return reg = $v0
+#stack reg = $sp
+#linkage reg = $ra
+##########################################
+
+factoral:
+  subu $sp, 24                            #push stack
+  sw $ra, 16($sp)                         #save linkage reg
+  sw $s0, 20($sp)                         #save work reg
+  li $v0, 1                               #set return reg = to 1
+  li $s0, 1                               #set work reg = 1
+  ble $a0, 1, skip                        #if input <= 1 then skip
+  move $s0, $a0                           #put input into work reg
+  subu $a0, 1                             #subtract input by one
+  jal factoral
+skip:
+  mult $v0, $s0                           #multiply the return by the work reg
+  mfhi $v0                                #move from hi into work reg
+  beqz $v0, good                          #check to see if anything is in the hi reg
+  li $v0, 4                               #call for print
+  la $a0, error                           #bring up data to be printed
+  syscall                                 #print
+  li $v0, 10                              #exit
+  syscall
+
+good:
+  mflo $v0                                #move from lo to work reg
+  lw $s0, 20($sp)                         #restore work reg
+  lw $ra, 16($sp)                         #restore linkage reg
+  addu $sp, 24                            #pop stack
+  j $ra                                   #return
+
+
   .data
-prompt: .asciiz "Please enter a number for how long you want the fibonacci sequence to run.\n"
+prompt: .asciiz "Please enter a number for the factoral to execute.\n"
 input: .word 1
 first: .word 4
 sec: .word 4
 newln: .asciiz "\n"
-multiply: .asciiz "x"
+error: .asciiz "Value is too large, please run again but with a smaller number.\n"
 run: .asciiz "Running:\n"
