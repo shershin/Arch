@@ -1,9 +1,6 @@
 # Michael Shershin
 # 200-49-739
 # CMPT 422L 111
-#i am sorry about the errors
-#i found out that in spim (which i was using before you didnt have to put defintation registers for simple adding or subtracting
-#but with mars it is required
 
   .text
 main: .globl main
