@@ -8,17 +8,26 @@ main: .globl main
   la $a0, prompt                          #bring up the data to be printed
   syscall                                 #print it
 
-  li $v0, 5                               #call for reading int
+  li $v0, 8                               #call for reading int
   syscall
 
-  sw $v0, input                           #save the users input
-
+  sw $a0, string                          #save the users input
+  sw $a1, length			  #save the strings length
+  
   li $v0, 4                               #call for print
-  la $a0, run                             #bring up data to be printed
+  la $a0, charprompt                      #bring up data to be printed
   syscall                                 #print
-
-  lw $a0, input                           #load input
-  jal factoral                            #start factoral
+  
+  li $v0, 12				  #call for reading char
+  syscall
+  
+  sw $v0, char				  #save the character to look for
+  
+  lw $a0, string                          #load input
+  li $s0, 0				  #loop control
+  
+loop:	                                  #start loop
+  
                                           #return in $v0
   move $a0, $v0                           #move return into $a0
   li $v0, 1                               #call for print int
@@ -70,10 +79,11 @@ good:
 
 
   .data
-prompt: .asciiz "Please enter a number for the factoral to execute.\n"
-input: .word 1
-first: .word 4
-sec: .word 4
-newln: .asciiz "\n"
-error: .asciiz "Value is too large, please run again but with a smaller number.\n"
-run: .asciiz "Running:\n"
+prompt:    .asciiz "Please enter a string.\n"
+charprompt:.asciiz "Please enter a char to search for.\n"
+string:    .word 4
+char:      .word 4
+length:    .word 4
+newln:     .asciiz "\n"
+error:     .asciiz "Value is too large, please run again but with a smaller number.\n"
+run:       .asciiz "Running:\n"
