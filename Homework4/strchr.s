@@ -8,34 +8,37 @@ main: .globl main
   la $a0, prompt                          #bring up the data to be printed
   syscall                                 #print it
 
-  li $v0, 8                               #call for reading int
+  li $a0, 8                               #call for reading string
   syscall
 
   sw $a0, string                          #save the users input
   sw $a1, length			  #save the strings length
-  
+
+  beqz $a1, stringerror 
   li $v0, 4                               #call for print
-  la $a0, charprompt                      #bring up data to be printed
+  la $a0, string                     #bring up data to be printed
   syscall                                 #print
   
-  li $v0, 12				  #call for reading char
+  li $a0, 8				  #call for reading char
   syscall
+  
+  sw $a0, char
+  sw $a1, charlength
   
   sw $v0, char				  #save the character to look for
   
   lw $a0, string                          #load input
   li $s0, 0				  #loop control
   
-loop:	                                  #start loop
   
                                           #return in $v0
-  move $a0, $v0                           #move return into $a0
-  li $v0, 1                               #call for print int
-  syscall
+  #move $a0, $v0                           #move return into $a0
+  #li $v0, 1                               #call for print int
+  #syscall
 
-  li $v0, 4                               #print new line
-  la $a0, newln
-  syscall
+  #li $v0, 4                               #print new line
+  #la $a0, newln
+  #syscall
 
 exit: li $v0, 10                          #exit
   syscall
@@ -49,41 +52,37 @@ exit: li $v0, 10                          #exit
 #stack reg = $sp
 #linkage reg = $ra
 ##########################################
+stringerror:
+ li $v0, 4
+ la $v0, errorstring
+ syscall
+ 
+ jal exit
+ 
+charerror:
+ li $v0, 4
+ la $v0, errorchar
+ syscall
+ 
+ jal exit
+ 
+loopcheck:
+ 
+ 
+ 
 
-factoral:
-  subu $sp, $sp, 24                       #push stack
-  sw $ra, 16($sp)                         #save linkage reg
-  sw $s0, 20($sp)                         #save work reg
-  li $v0, 1                               #set return reg = to 1
-  li $s0, 1                               #set work reg = 1
-  ble $a0, 1, skip                        #if input <= 1 then skip
-  move $s0, $a0                           #put input into work reg
-  subu $a0, $a0, 1                        #subtract input by one
-  jal factoral
-skip:
-  mult $v0, $s0                           #multiply the return by the work reg
-  mfhi $v0                                #move from hi into work reg
-  beqz $v0, good                          #check to see if anything is in the hi reg
-  li $v0, 4                               #call for print
-  la $a0, error                           #bring up data to be printed
-  syscall                                 #print
-  li $v0, 10                              #exit
-  syscall
-
-good:
-  mflo $v0                                #move from lo to work reg
-  lw $s0, 20($sp)                         #restore work reg
-  lw $ra, 16($sp)                         #restore linkage reg
-  addu $sp, $sp, 24                       #pop stack
-  jr $ra                                  #return
+ jr $ra
 
 
   .data
-prompt:    .asciiz "Please enter a string.\n"
-charprompt:.asciiz "Please enter a char to search for.\n"
-string:    .word 4
-char:      .word 4
-length:    .word 4
-newln:     .asciiz "\n"
-error:     .asciiz "Value is too large, please run again but with a smaller number.\n"
-run:       .asciiz "Running:\n"
+prompt:     .asciiz "Please enter a string.\n"
+charprompt: .asciiz "Please enter a char to search for.\n"
+string:     .word 4
+char:       .word 4
+length:     .word 4
+charlength: .word 4
+newln:      .asciiz "\n"
+error:      .asciiz "Value is too large, please run again but with a smaller number.\n"
+run:        .asciiz "Running:\n"
+errorstring: .asciiz "Please enter a long enough string to check."
+errorchar: .asciiz "Please enter a char."
