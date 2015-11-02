@@ -81,7 +81,7 @@ int main()
       }
     }while((done == 0) && (error == 0));
   if (error == 0){
-    sortlist = (struct ptrlist *) malloc (nbrChar*sizeof(struct ptrlist *));
+    sortlist = (struct ptrlist *) malloc (nbrChar*sizeof(struct ptrlist));
     if(sortlist == NULL){
       printf("Unable to obtain heap for sorting.\n");
     }else{
@@ -92,7 +92,7 @@ int main()
         current = current->after;
         currentsort++;
       }
-      qsort(sortlist,nbrChar,sizeof(struct ptrlist *),(*listsort));
+      qsort(sortlist,nbrChar,sizeof(struct ptrlist),(*listsort));
       currentsort = sortlist;
       for(i = 0; i < nbrChar; i++){
         if (sortfirst == NULL){
